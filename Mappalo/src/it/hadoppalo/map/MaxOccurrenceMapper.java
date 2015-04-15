@@ -1,4 +1,4 @@
-package it.hadoppalo.map;
+	package it.hadoppalo.map;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -33,5 +33,6 @@ public class MaxOccurrenceMapper extends MapReduceBase implements Mapper<LongWri
 		}
 
 	}
+	
 
 }

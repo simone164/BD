@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="DataGenerator/src"/>
+	<classpathentry kind="src" path="Mappalo/src"/>
+	<classpathentry kind="lib" path="Mappalo/lib/commons-cli-1.2.jar"/>
+	<classpathentry kind="lib" path="Mappalo/lib/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="Mappalo/lib/guava-18.0.jar"/>
+	<classpathentry kind="lib" path="Mappalo/lib/hadoop-common-2.6.0.jar"/>
+	<classpathentry kind="lib" path="Mappalo/lib/hadoop-mapreduce-client-core-2.6.0.jar"/>
+	<classpathentry kind="lib" path="Mappalo/lib/hsqldb-2.3.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="output" path="Mappalo/bin"/>
+</classpath>

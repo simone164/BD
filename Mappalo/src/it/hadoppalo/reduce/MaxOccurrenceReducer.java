@@ -2,14 +2,16 @@ package it.hadoppalo.reduce;
 
 import java.io.IOException;
 import java.util.Iterator;
+
+
 import org.apache.hadoop.io.*;
 import org.apache.hadoop.mapred.*;
 
-public class MaxOccurrenceReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, DoubleWritable> {
+public class MaxOccurrenceReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
 
-	private DoubleWritable result = new DoubleWritable();
+	private IntWritable result = new IntWritable();
 	
-	public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, DoubleWritable> output, Reporter reporter)
+	public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter)
 			throws IOException {
 
 		int sum = 0;
@@ -17,8 +19,13 @@ public class MaxOccurrenceReducer extends MapReduceBase implements Reducer<Text,
 			sum += values.next().get();
 		}
 		result.set(sum);
+		
+	//	Text testo = new Text(key + " " + result.toString());
+		
 		output.collect(key, result);
 		
+		
 	}
+
 
 }
