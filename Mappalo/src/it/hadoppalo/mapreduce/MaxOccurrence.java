@@ -4,34 +4,26 @@ import it.hadoppalo.map.MaxOccurrenceMapper;
 import it.hadoppalo.map.MaxOccurrenceMapper2;
 import it.hadoppalo.reduce.MaxOccurrenceReducer;
 import it.hadoppalo.reduce.MaxOccurrenceReducer2;
-import it.hadoppalo.reduce.intComparator;
+import it.hadoppalo.reduce.IntComparator;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
-import org.apache.hadoop.util.GenericOptionsParser;
 
 public class MaxOccurrence {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
-		String[] otherArgs = new GenericOptionsParser(conf, args)
-				.getRemainingArgs();
-//		if (otherArgs.length != 2) {
-//			System.err.println("Usage: wordcount <in> <out>");
-//			System.exit(2);
-//		}
-		//conf.set("mapreduce.output.key.field.separator", ",");
 		
 		Path input = new Path(args[1]);
 		Path temp = new Path("/temp");
 		Path output = new Path("/output");
 		
+		@SuppressWarnings("deprecation")
 		Job job = new Job(conf, "MaxOccurrence");
 		job.setJarByClass(MaxOccurrence.class);
 		job.setMapperClass(MaxOccurrenceMapper.class);
@@ -47,10 +39,11 @@ public class MaxOccurrence {
 
 		if (esit) {
 
+			@SuppressWarnings("deprecation")
 			Job job1 = new Job(conf, "MaxOccurrence2");
 			job1.setJarByClass(MaxOccurrence.class);
 			job1.setMapperClass(MaxOccurrenceMapper2.class);
-			job1.setSortComparatorClass(intComparator.class);
+			job1.setSortComparatorClass(IntComparator.class);
 			job1.setReducerClass(MaxOccurrenceReducer2.class);
 			job1.setMapOutputKeyClass(IntWritable.class);
 			job1.setMapOutputValueClass(Text.class);

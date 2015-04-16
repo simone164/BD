@@ -7,8 +7,8 @@ import org.apache.hadoop.io.IntWritable;
 
 
 
-public class intComparator extends WritableComparator {
-    protected intComparator() {
+public class IntComparator extends WritableComparator {
+    protected IntComparator() {
         super (IntWritable.class);
     }
 

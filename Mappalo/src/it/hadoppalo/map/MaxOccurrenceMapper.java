@@ -7,30 +7,23 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class MaxOccurrenceMapper extends
-		Mapper<Object, Text, Text, IntWritable> {
+public class MaxOccurrenceMapper extends Mapper<Object, Text, Text, IntWritable> {
 
 	private final static IntWritable one = new IntWritable(1);
 	private Text word = new Text();
 
-	public void map(Object key, Text value, Context context)
-			throws IOException, InterruptedException {
+	public void map(Object key, Text value, Context context) throws IOException, InterruptedException {
 		StringTokenizer itr = new StringTokenizer(value.toString());
 
 		while (itr.hasMoreTokens()) {
 			String token = itr.nextToken();
 			String[] arrayData = token.split(",");
-			// String[] arrayString = Arrays.copyOfRange(arrayData, 1,
-			// arrayData.length);
 
 			for (String s : arrayData) {
 				if (s.equals(arrayData[0])) {
-					//NONPRENDELADATA
-				}
-				else 
-				{
+					// NONPRENDELADATA
+				} else {
 					word.set(s);
-					//System.out.println(word + " + " + one.toString());
 					context.write(word, one);
 				}
 			}

@@ -5,12 +5,10 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class MaxOccurrenceReducer extends
-		Reducer<Text, IntWritable, Text, IntWritable> {
+public class MaxOccurrenceReducer extends Reducer<Text, IntWritable, Text, IntWritable> {
 	public IntWritable result = new IntWritable();
 
-	public void reduce(Text key, Iterable<IntWritable> values, Context context)
-			throws IOException, InterruptedException {
+	public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException {
 		int sum = 0;
 		for (IntWritable val : values) {
 			sum += val.get();
