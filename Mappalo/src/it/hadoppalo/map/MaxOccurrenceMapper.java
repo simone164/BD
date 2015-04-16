@@ -1,38 +1,41 @@
-	package it.hadoppalo.map;
+package it.hadoppalo.map;
 
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.StringTokenizer;
 
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapred.MapReduceBase;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Mapper;
 
-public class MaxOccurrenceMapper extends MapReduceBase implements Mapper<LongWritable, Text, Text, IntWritable> {
+public class MaxOccurrenceMapper extends
+		Mapper<Object, Text, Text, IntWritable> {
 
 	private final static IntWritable one = new IntWritable(1);
-	private Text cibo = new Text();
+	private Text word = new Text();
 
-	@Override
-	public void map(LongWritable writable, Text text, OutputCollector<Text, IntWritable> collector, Reporter reporter) throws IOException {
+	public void map(Object key, Text value, Context context)
+			throws IOException, InterruptedException {
+		StringTokenizer itr = new StringTokenizer(value.toString());
 
-		StringTokenizer itr = new StringTokenizer(text.toString());
 		while (itr.hasMoreTokens()) {
 			String token = itr.nextToken();
-			// System.out.println(i + ": "+ token);
 			String[] arrayData = token.split(",");
-			String[] arrayString = Arrays.copyOfRange(arrayData, 1, arrayData.length);
-			;
-			for (String s : arrayString) {
-				// System.out.println("i=" + i + ": " + s.toString());
-				cibo.set(s);
-				collector.collect(cibo, one);
+			// String[] arrayString = Arrays.copyOfRange(arrayData, 1,
+			// arrayData.length);
+
+			for (String s : arrayData) {
+				if (s.equals(arrayData[0])) {
+					//NONPRENDELADATA
+				}
+				else 
+				{
+					word.set(s);
+					//System.out.println(word + " + " + one.toString());
+					context.write(word, one);
+				}
 			}
 		}
 
 	}
-	
-
 }

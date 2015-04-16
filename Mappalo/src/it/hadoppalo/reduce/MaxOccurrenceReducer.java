@@ -1,31 +1,21 @@
 package it.hadoppalo.reduce;
 
 import java.io.IOException;
-import java.util.Iterator;
+import org.apache.hadoop.io.IntWritable;
+import org.apache.hadoop.io.Text;
+import org.apache.hadoop.mapreduce.Reducer;
 
+public class MaxOccurrenceReducer extends
+		Reducer<Text, IntWritable, Text, IntWritable> {
+	public IntWritable result = new IntWritable();
 
-import org.apache.hadoop.io.*;
-import org.apache.hadoop.mapred.*;
-
-public class MaxOccurrenceReducer extends MapReduceBase implements Reducer<Text, IntWritable, Text, IntWritable> {
-
-	private IntWritable result = new IntWritable();
-	
-	public void reduce(Text key, Iterator<IntWritable> values, OutputCollector<Text, IntWritable> output, Reporter reporter)
-			throws IOException {
-
+	public void reduce(Text key, Iterable<IntWritable> values, Context context)
+			throws IOException, InterruptedException {
 		int sum = 0;
-		while(values.hasNext()){
-			sum += values.next().get();
+		for (IntWritable val : values) {
+			sum += val.get();
 		}
 		result.set(sum);
-		
-	//	Text testo = new Text(key + " " + result.toString());
-		
-		output.collect(key, result);
-		
-		
+		context.write(key, result);
 	}
-
-
 }

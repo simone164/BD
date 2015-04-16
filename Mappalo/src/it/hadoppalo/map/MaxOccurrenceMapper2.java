@@ -6,34 +6,69 @@ import java.util.StringTokenizer;
 import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.LongWritable;
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapred.MapReduceBase;
-import org.apache.hadoop.mapred.Mapper;
-import org.apache.hadoop.mapred.OutputCollector;
-import org.apache.hadoop.mapred.Reporter;
+import org.apache.hadoop.mapreduce.Mapper;
 
-public class MaxOccurrenceMapper2 extends MapReduceBase implements
-		Mapper<Text , LongWritable, IntWritable, Text> {
+public class MaxOccurrenceMapper2 extends
+		Mapper<LongWritable, Text, IntWritable, Text> {
 
-	public void map(Text key, LongWritable value, OutputCollector<IntWritable, Text> collector, Reporter arg3) throws IOException {
-        String line = value.toString();
-        StringTokenizer stringTokenizer = new StringTokenizer(line);
-        {
-            int number = 999;
-            String word = "empty";
+	private static IntWritable number = new IntWritable();
+	private Text word = new Text();
 
-            if (stringTokenizer.hasMoreTokens()) {
-                String str0 = stringTokenizer.nextToken();
-                word = str0.trim();
-            }
+	public void map(LongWritable key, Text value, Context context)
+			throws IOException, InterruptedException {
+		// your map code goes here
+		StringTokenizer itr = new StringTokenizer(value.toString());
+		int count = 0;
+		while (itr.hasMoreTokens()) {
+			String token = itr.nextToken();
+			String[] arrayCibo = token.split("\t");
+			if (arrayCibo != null) {
+//				String cane = "";
+//				for(String s: arrayCibo){
+//					cane += "*" + s + "*";
+//				}
+//				System.out.println(cane);
+				count++;
+				
+				for (String s : arrayCibo) {
+					
+					if (count == 1) {
+						Integer valoreCount = count;
+						word = new Text(s);
+						System.out.println(word + " count = "
+								+ valoreCount.toString());
+					}
+					if (count == 2) {
+						Integer valoreCount = count;
+						number = new IntWritable(Integer.parseInt(s));
+						System.out.println(number.toString() + " count = "
+								+ valoreCount.toString());
+						context.write(number, word);
 
-            if (stringTokenizer.hasMoreElements()) {
-                String str1 = stringTokenizer.nextToken();
-                number = Integer.parseInt(str1.trim());
-            }
-            collector.collect(new IntWritable(number), new Text(word));
-        }
+					}
+				}
+				// word.set(arrayCibo[0]);
+				// number = new IntWritable(Integer.parseInt(arrayCibo[1]));
+			}
 
-    
+			//System.out.println((number.toString() + " *** " + word));
+		}
 	}
-
+	
+	private static boolean isWhitespace(String s) {
+	    int length = s.length();
+	    if (length > 0) {
+	        for (int i = 0; i < length; i++) {
+	            if (!Character.isWhitespace(s.charAt(i))) {
+	                return false;
+	            }
+	        }
+	        return true;
+	    }
+	    return false;
+	}
 }
+
+// context.write(key, new
+// IntWritable(Integer.getInteger(value.toString())));
+
