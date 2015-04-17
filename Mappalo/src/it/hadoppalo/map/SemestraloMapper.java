@@ -19,9 +19,14 @@ public class SemestraloMapper extends Mapper<Object, Text, Text, IntWritable> {
 		while (itr.hasMoreTokens()) {
 			String token = itr.nextToken();
 			String[] arrayData = token.split(",");
-			if (arrayData[0].contains(("2015"))) {
+			if (arrayData[0].contains(("2015-0-"))||
+					arrayData[0].contains(("2015-1-"))||
+					arrayData[0].contains(("2015-2-"))) {
 				
-				String data = arrayData[0];
+				String dataEnorme = arrayData[0];
+				String[] dataSplittata = dataEnorme.split("-");
+				String data = dataSplittata[0] + "-" + dataSplittata[1];
+					
 
 				for (String s : arrayData) {
 					if (s.equals(arrayData[0])) {
