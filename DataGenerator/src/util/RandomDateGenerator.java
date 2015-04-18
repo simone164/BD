@@ -4,7 +4,8 @@ import java.util.GregorianCalendar;
 
 public class RandomDateGenerator {
     
-    public static String generate() {
+    @SuppressWarnings("static-access")
+	public static String generate() {
 
         GregorianCalendar gc = new GregorianCalendar();
 

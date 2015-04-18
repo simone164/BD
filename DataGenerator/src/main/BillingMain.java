@@ -27,7 +27,7 @@ public static void main(String[] args) throws IOException {
 		 * - il numero massimo di cibi per scontrino (nell'esempio 5)
 		 * - la data viene generata in modo randomico nel formato yyyy-mm-dd
 		 */
-		IB.generate("data/esempio.txt", 1000000, 5);
+		IB.generate("data/esempio.txt", 1000000, 7);
 
 	}
 
