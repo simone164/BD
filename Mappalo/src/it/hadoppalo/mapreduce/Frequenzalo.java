@@ -17,7 +17,7 @@ public class Frequenzalo {
 		Configuration conf = new Configuration();
 
 		Path input = new Path(args[1]);
-		Path output = new Path("/output");
+		Path output = new Path(args[2]);
 
 		@SuppressWarnings("deprecation")
 		Job job = new Job(conf, "Frequenzalo");
@@ -32,6 +32,5 @@ public class Frequenzalo {
 		FileInputFormat.addInputPath(job, input);
 		FileOutputFormat.setOutputPath(job, output);
 		job.waitForCompletion(true);
-//		boolean esit = job.waitForCompletion(true);
 	}
 }

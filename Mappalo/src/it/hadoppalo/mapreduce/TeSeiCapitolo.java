@@ -20,14 +20,13 @@ public class TeSeiCapitolo {
 		Configuration conf = new Configuration();
 
 		Path input = new Path(args[1]);
+		Path output = new Path(args[2]);
 		Path temp = new Path("/temp");
-		Path output = new Path("/output");
 
 		@SuppressWarnings("deprecation")
 		Job job = new Job(conf, "TeSeiCapitolo");
 		job.setJarByClass(TeSeiCapitolo.class);
 		job.setMapperClass(TeSeiCapitoloMapper.class);
-		//job.setCombinerClass(TeSeiCapitoloReducer.class);
 		job.setReducerClass(TeSeiCapitoloReducer.class);
 		job.setMapOutputKeyClass(Text.class);
 		job.setMapOutputValueClass(LongWritable.class);
@@ -43,7 +42,6 @@ public class TeSeiCapitolo {
 			Job job1 = new Job(conf, "TeSeiCapitolo2");
 			job1.setJarByClass(TeSeiCapitolo.class);
 			job1.setMapperClass(TeSeiCapitoloMapper2.class);
-			//job1.setSortComparatorClass(TeSeiCapitoloReducer.class);
 			job1.setReducerClass(TeSeiCapitoloReducer2.class);
 			job1.setMapOutputKeyClass(Text.class);
 			job1.setMapOutputValueClass(Text.class);

@@ -20,8 +20,8 @@ public class MaxOccurrence {
 		Configuration conf = new Configuration();
 		
 		Path input = new Path(args[1]);
+		Path output = new Path(args[2]);
 		Path temp = new Path("/temp");
-		Path output = new Path("/output");
 		
 		@SuppressWarnings("deprecation")
 		Job job = new Job(conf, "MaxOccurrence");
