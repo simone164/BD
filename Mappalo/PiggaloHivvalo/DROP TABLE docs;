@@ -1,4 +1,0 @@
-DROP TABLE docs;
-DROP TABLE word_counts;
-DROP TABLE onlyTrimestre;
-DROP TABLE finaleHivvalo
